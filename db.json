@@ -1,0 +1,30 @@
+{
+  "usuarios": [
+    {
+      "nome": "gabrilea",
+      "cpf": "201.412.41",
+      "email": "424142@gmail.com",
+      "endereco": {
+        "cep": "21515-610",
+        "rua": "Rua Motorista Luiz Abreu",
+        "numero": "512",
+        "bairro": "Anchieta",
+        "cidade": "Rio de Janeiro"
+      },
+      "id": 2
+    },
+    {
+      "nome": "nathy",
+      "cpf": "401.240.101-241",
+      "email": "21421412412@gmail.com",
+      "endereco": {
+        "cep": "22710-245",
+        "rua": "Rua Macembu",
+        "numero": "vdv",
+        "bairro": "Taquara",
+        "cidade": "Rio de Janeiro"
+      },
+      "id": 3
+    }
+  ]
+}
