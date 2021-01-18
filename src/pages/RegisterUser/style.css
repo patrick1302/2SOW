@@ -1,0 +1,22 @@
+.container-register {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.input-register {
+  margin-bottom: 10px;
+}
+.btn-register {
+  background: black;
+  color: #fff;
+  margin: 10px 0px 10px 10px;
+  width: 280px;
+  border: none;
+  line-height: 2rem;
+  border-radius: 30px;
+}

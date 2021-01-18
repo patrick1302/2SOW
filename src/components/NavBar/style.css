@@ -1,0 +1,32 @@
+.menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+  background: #000;
+}
+.menu ul {
+  display: flex;
+  margin-top: 15px;
+}
+.menu ul li {
+  padding: 15px;
+}
+
+.menu ul li a {
+  color: #fff;
+  font-weight: bold;
+}
+.logo,
+.logout {
+  color: white;
+}
+svg:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 655px) {
+  .logo {
+    display: none;
+  }
+}

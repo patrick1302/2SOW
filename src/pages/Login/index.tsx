@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import * as EmailValidator from 'email-validator';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Swal from 'sweetalert2';
 
+import './style.css';
+
 const Login = () => {
   const [infoLogin, setInfoLogin] = useState({ email: '', password: '' });
-
   const history = useHistory();
 
-  const handleChange = (e) =>
+  const handleChange = e =>
     setInfoLogin({ ...infoLogin, [e.target.name]: e.target.value });
 
   const login = () => {
@@ -37,29 +38,36 @@ const Login = () => {
   };
   return (
     <>
-      <div>
-        <label htmlFor='email'>Email</label>
+      <div className='container-login'>
+        <h2>Login</h2>
+        <label className='input-label' htmlFor='email'>
+          <strong>Email</strong>
+        </label>
         <input
+          className='user__input'
           type='text'
           name='email'
           id='email'
           onChange={handleChange}
           value={infoLogin.email}
+          placeholder='Digite seu email'
         />
-      </div>
-      <div>
-        <label htmlFor='password'>Senha</label>
+        <label className='input-label' htmlFor='password'>
+          <strong>Senha</strong>
+        </label>
         <input
+          className='user__input'
           type='password'
           name='password'
           id='password'
           onChange={handleChange}
           value={infoLogin.password}
+          placeholder='Digite sua senha'
         />
+        <button className='btn-login' onClick={login}>
+          Entrar
+        </button>
       </div>
-      <button type='submit' className='btn-login' onClick={login}>
-        Login
-      </button>
     </>
   );
 };

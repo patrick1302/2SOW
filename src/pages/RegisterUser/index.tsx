@@ -3,24 +3,14 @@ import React, { useState } from 'react';
 import api from '../../services/api';
 import axios from 'axios';
 
+import { cpfMask, cepMask } from '../../utils/mask';
 import * as EmailValidator from 'email-validator';
 
-import Swal from 'sweetalert2';
+import NavBar from '../../components/NavBar';
 
-const cpfMask = (value) => {
-  return value
-    .replace(/\D/g, '')
-    .replace(/(\d{3})(\d)/, '$1.$2')
-    .replace(/(\d{3})(\d)/, '$1.$2')
-    .replace(/(\d{3})(\d{1,2})/, '$1-$2')
-    .replace(/(-\d{2})\d+?$/, '$1');
-};
-const cepMask = (value) => {
-  return value
-    .replace(/\D/g, '')
-    .replace(/(\d{5})(\d)/, '$1-$2')
-    .replace(/(-\d{3})\d+?$/, '$1');
-};
+import Swal from 'sweetalert2';
+import './style.css';
+
 const RegisterUsers = () => {
   const initialState = {
     name: '',
@@ -33,7 +23,7 @@ const RegisterUsers = () => {
     city: '',
   };
 
-  const autoCompleteCep = async (cep) => {
+  const autoCompleteAddress = async cep => {
     const response = await axios.get(`http://viacep.com.br/ws/${cep}/json`);
     const { bairro, localidade, logradouro } = response.data;
     setUserInfos({
@@ -45,8 +35,8 @@ const RegisterUsers = () => {
   };
 
   const [userInfos, setUserInfos] = useState(initialState);
-  console.log(userInfos);
-  const handleChange = (e) =>
+
+  const handleChange = e =>
     setUserInfos({ ...userInfos, [e.target.name]: e.target.value });
 
   const registerUser = async () => {
@@ -85,7 +75,7 @@ const RegisterUsers = () => {
       });
     }
     try {
-      const save = {
+      const user = {
         nome: name,
         cpf,
         email,
@@ -97,7 +87,7 @@ const RegisterUsers = () => {
           cidade: city,
         },
       };
-      await api.post('/usuarios', save);
+      await api.post('/usuarios', user);
       Swal.fire({
         text: 'Usuário cadastrado com sucesso.',
         icon: 'success',
@@ -109,89 +99,95 @@ const RegisterUsers = () => {
   };
   return (
     <>
-      <div>
-        <label htmlFor='name'>Nome</label>
-        <input
-          type='text'
-          name='name'
-          id='name'
-          onChange={handleChange}
-          value={userInfos.name}
-        />
+      <NavBar />
+      <div className='container-register'>
+        <h2>Cadastrar usuário</h2>
+        <div>
+          <input
+            className='input-register'
+            type='text'
+            name='name'
+            id='name'
+            onChange={handleChange}
+            value={userInfos.name}
+            placeholder='Digite seu nome'
+          />
+        </div>
+        <div>
+          <input
+            className='input-register'
+            type='text'
+            name='cpf'
+            onChange={handleChange}
+            value={cpfMask(userInfos.cpf)}
+            placeholder='Digite seu CPF'
+          />
+        </div>
+        <div>
+          <input
+            className='input-register'
+            type='text'
+            name='email'
+            onChange={handleChange}
+            value={userInfos.email}
+            placeholder='Digite seu email'
+          />
+        </div>
+        <div>
+          <input
+            className='input-register'
+            type='text'
+            name='cep'
+            onChange={handleChange}
+            onBlur={() => autoCompleteAddress(userInfos.cep)}
+            value={cepMask(userInfos.cep)}
+            placeholder='Digite seu CEP'
+          />
+        </div>
+        <div>
+          <input
+            className='input-register'
+            type='text'
+            name='city'
+            onChange={handleChange}
+            value={userInfos.city}
+            placeholder='Digite o nome da sua cidade'
+          />
+        </div>
+        <div>
+          <input
+            className='input-register'
+            type='text'
+            name='neighborhood'
+            onChange={handleChange}
+            value={userInfos.neighborhood}
+            placeholder='Digite o nome do seu bairro'
+          />
+        </div>
+        <div>
+          <input
+            className='input-register'
+            type='text'
+            name='street'
+            onChange={handleChange}
+            value={userInfos.street}
+            placeholder='Digite o nome sua rua'
+          />
+        </div>
+        <div>
+          <input
+            className='input-register'
+            type='text'
+            name='streetNumber'
+            onChange={handleChange}
+            value={userInfos.streetNumber}
+            placeholder='Digite o número da sua casa'
+          />
+        </div>
+        <button className='btn-register' onClick={registerUser}>
+          Cadastrar
+        </button>
       </div>
-      <div>
-        <label htmlFor='cpf'>CPF</label>
-        <input
-          type='text'
-          name='cpf'
-          id='cpf'
-          onChange={handleChange}
-          value={cpfMask(userInfos.cpf)}
-        />
-      </div>
-      <div>
-        <label htmlFor='email'>Email</label>
-        <input
-          type='text'
-          name='email'
-          id='email'
-          onChange={handleChange}
-          value={userInfos.email}
-        />
-      </div>
-      <div>
-        <label htmlFor='cep'>CEP</label>
-        <input
-          type='text'
-          name='cep'
-          id='cep'
-          onChange={handleChange}
-          onBlur={() => autoCompleteCep(userInfos.cep)}
-          value={cepMask(userInfos.cep)}
-        />
-      </div>
-      <div>
-        <label htmlFor='city'>Cidade</label>
-        <input
-          type='text'
-          name='city'
-          id='city'
-          onChange={handleChange}
-          value={userInfos.city}
-        />
-      </div>
-      <div>
-        <label htmlFor='neighborhood'>Bairro</label>
-        <input
-          type='text'
-          name='neighborhood'
-          id='neighborhood'
-          onChange={handleChange}
-          value={userInfos.neighborhood}
-        />
-      </div>
-      <div>
-        <label htmlFor='street'>Rua</label>
-        <input
-          type='text'
-          name='street'
-          id='street'
-          onChange={handleChange}
-          value={userInfos.street}
-        />
-      </div>
-      <div>
-        <label htmlFor='streetNumber'>Número</label>
-        <input
-          type='text'
-          name='streetNumber'
-          id='streetNumber'
-          onChange={handleChange}
-          value={userInfos.streetNumber}
-        />
-      </div>
-
-      <button onClick={registerUser}>Cadastrar</button>
     </>
   );
 };

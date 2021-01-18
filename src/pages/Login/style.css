@@ -1,0 +1,31 @@
+.container-login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 10px;
+  width: 300px;
+  height: 250px;
+}
+
+h2 {
+  text-align: center;
+}
+.input-label {
+  display: block;
+  margin: 10px;
+}
+input {
+  margin: 0 10px;
+  width: 280px;
+}
+.btn-login {
+  background: black;
+  color: #fff;
+  margin: 20px 0px 10px 10px;
+  width: 280px;
+  border: none;
+  line-height: 2rem;
+  border-radius: 30px;
+}
